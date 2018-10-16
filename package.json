@@ -1,0 +1,35 @@
+{
+  "name": "react-bmap-lite",
+  "description": "React BaiduMapLite component",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qiuxiang/react-bmap-lite"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --devtool source-map --host 0.0.0.0"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.5.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "react-dom": "^16.5.2",
+    "react-router-dom": "^4.3.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/react"
+    ]
+  }
+}
