@@ -8,21 +8,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --devtool source-map --host 0.0.0.0"
+    "build": "tsc --jsx react --outDir dist --declaration src/*"
   },
   "devDependencies": {
     "@types/baidumap-web-sdk": "^2.0.3",
     "@types/react": "^16.4.17",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-router-dom": "^4.3.1",
-    "html-webpack-plugin": "^3.2.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-router-dom": "^4.3.1",
-    "ts-loader": "^5.2.2",
-    "typescript": "^3.1.3",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "typescript": "^3.1.3"
   }
 }

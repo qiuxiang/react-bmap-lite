@@ -1,5 +1,5 @@
 import * as React from "react";
-import BMapLite from "../lib";
+import BMapLite from "../../dist";
 
 export default () => <BMapLite style={mapStyle} />;
 
