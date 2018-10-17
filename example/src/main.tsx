@@ -1,7 +1,26 @@
 import * as React from "react";
-import BMapLite from "../../dist";
+import BMapLite from "../../src";
 
-export default () => <BMapLite style={mapStyle} />;
+export default class Main extends React.PureComponent {
+  state = {
+    center: new BMap.Point(116.404, 39.915),
+    zoom: 7
+  };
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ zoom: 16 }), 2000);
+  }
+
+  render() {
+    return (
+      <BMapLite
+        style={mapStyle}
+        center={this.state.center}
+        zoom={this.state.zoom}
+      />
+    );
+  }
+}
 
 const mapStyle = {
   width: "100%",

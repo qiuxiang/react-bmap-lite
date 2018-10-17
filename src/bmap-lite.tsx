@@ -1,6 +1,9 @@
 import * as React from "react";
 
-export type Props = {} & React.HTMLProps<HTMLDivElement>;
+export type Props = {
+  center: BMap.Point;
+  zoom: BMap.ZoomType;
+} & React.HTMLProps<HTMLDivElement>;
 
 export default class BMapLite extends React.PureComponent<Props> {
   $map: HTMLElement;
@@ -8,12 +11,17 @@ export default class BMapLite extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.map = new BMap.Map(this.$map);
-    this.map.centerAndZoom(new BMap.Point(116.404, 39.915), 7);
-    console.log(this.props);
+    this.map.centerAndZoom(this.props.center, this.props.zoom);
   }
 
-  componentDidUpdate(props) {
-    console.log(props);
+  componentWillReceiveProps(props) {
+    if (props.center !== this.props.center) {
+      this.map.setCenter(props.center);
+    }
+
+    if (props.zoom !== this.props.zoom) {
+      this.map.setZoom(props.zoom);
+    }
   }
 
   render() {
