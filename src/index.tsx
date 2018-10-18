@@ -1,5 +1,6 @@
 import * as React from "react";
 import Marker from "./marker";
+import Overlay from "./overlay";
 
 export const Context = React.createContext(null);
 
@@ -10,9 +11,10 @@ export type Props = {
 
 export default class BMapLite extends React.PureComponent<Props> {
   static Marker = Marker;
+  static Overlay = Overlay;
   state = { map: null }; // 在这里，state.map 只是用于触发重渲染
   map: BMap.Map;
-  $map: HTMLElement;
+  $map: HTMLDivElement;
 
   componentDidMount() {
     this.map = new BMap.Map(this.$map);

@@ -3,6 +3,7 @@ import { Context } from "./";
 
 export type Props = {
   position: BMap.Point;
+  icon?: BMap.Icon;
   onClick?: () => void;
 };
 
@@ -18,6 +19,10 @@ export default class Marker extends React.PureComponent<Props> {
     if (props.onClick !== this.props.onClick) {
       this.marker.removeEventListener("click", this.props.onClick);
       this.marker.addEventListener("click", props.onClick);
+    }
+
+    if (props.icon !== this.props.icon) {
+      this.marker.setIcon(this.props.icon);
     }
   }
 
