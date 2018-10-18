@@ -7,6 +7,8 @@ export const Context = React.createContext(null);
 export type Props = {
   center: BMap.Point;
   zoom: BMap.ZoomType;
+  draggingDisabled?: boolean;
+  inertialDraggingDisabled?: boolean;
 } & React.HTMLProps<HTMLDivElement>;
 
 export default class BMapLite extends React.PureComponent<Props> {
@@ -20,15 +22,35 @@ export default class BMapLite extends React.PureComponent<Props> {
     this.map = new BMap.Map(this.$map);
     this.setState({ map: this.map });
     this.map.centerAndZoom(this.props.center, this.props.zoom);
+    this.componentWillReceiveProps(this.props, true);
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props, focus = false) {
     if (props.center !== this.props.center) {
       this.map.setCenter(props.center);
     }
 
     if (props.zoom !== this.props.zoom) {
       this.map.setZoom(props.zoom);
+    }
+
+    if (props.draggingDisabled !== this.props.draggingDisabled || focus) {
+      if (props.draggingDisabled) {
+        this.map.disableDragging();
+      } else {
+        this.map.enableDragging();
+      }
+    }
+
+    if (
+      props.inertialDraggingDisabled !== this.props.inertialDraggingDisabled ||
+      focus
+    ) {
+      if (props.inertialDraggingDisabled) {
+        this.map.disableInertialDragging();
+      } else {
+        this.map.enableInertialDragging();
+      }
     }
   }
 

@@ -19,6 +19,7 @@ export default class Main extends React.PureComponent {
         style={style.map}
         center={this.state.center}
         zoom={this.state.zoom}
+        inertialDraggingDisabled
       >
         <Marker position={this.state.center} onClick={() => alert("Marker")} />
         <Overlay position={this.state.center}>
