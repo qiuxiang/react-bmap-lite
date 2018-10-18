@@ -1,6 +1,8 @@
 import * as React from "react";
 import BMapLite from "../../src";
 
+const { Marker } = BMapLite;
+
 export default class Main extends React.PureComponent {
   state = {
     center: new BMap.Point(116.404, 39.915),
@@ -17,7 +19,9 @@ export default class Main extends React.PureComponent {
         style={mapStyle}
         center={this.state.center}
         zoom={this.state.zoom}
-      />
+      >
+        <Marker position={this.state.center} onClick={() => alert(3)} />
+      </BMapLite>
     );
   }
 }

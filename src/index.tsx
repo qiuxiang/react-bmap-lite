@@ -1,4 +1,7 @@
 import * as React from "react";
+import Marker from "./marker";
+
+export const Context = React.createContext(null);
 
 export type Props = {
   center: BMap.Point;
@@ -6,11 +9,14 @@ export type Props = {
 } & React.HTMLProps<HTMLDivElement>;
 
 export default class BMapLite extends React.PureComponent<Props> {
-  $map: HTMLElement;
+  static Marker = Marker;
+  state = { map: null }; // 在这里，state.map 只是用于触发重渲染
   map: BMap.Map;
+  $map: HTMLElement;
 
   componentDidMount() {
     this.map = new BMap.Map(this.$map);
+    this.setState({ map: this.map });
     this.map.centerAndZoom(this.props.center, this.props.zoom);
   }
 
@@ -25,6 +31,10 @@ export default class BMapLite extends React.PureComponent<Props> {
   }
 
   render() {
-    return <div ref={ref => (this.$map = ref)} {...this.props} />;
+    return (
+      <Context.Provider value={this.state.map}>
+        <div ref={ref => (this.$map = ref)} {...this.props} />
+      </Context.Provider>
+    );
   }
 }
