@@ -6,7 +6,7 @@ export const Context = React.createContext(null);
 
 export type Props = {
   center: BMap.Point;
-  zoom: BMap.ZoomType;
+  zoom: number;
   draggingDisabled?: boolean;
   inertialDraggingDisabled?: boolean;
 } & React.HTMLProps<HTMLDivElement>;
@@ -14,18 +14,19 @@ export type Props = {
 export default class BMapLite extends React.PureComponent<Props> {
   static Marker = Marker;
   static Overlay = Overlay;
-  state = { map: null }; // 在这里，state.map 只是用于触发重渲染
+
+  ref: HTMLDivElement;
   map: BMap.Map;
-  $map: HTMLDivElement;
+  state = { map: null }; // 在这里，state.map 只是用于触发重渲染
 
   componentDidMount() {
-    this.map = new BMap.Map(this.$map);
-    this.setState({ map: this.map });
+    this.map = new BMap.Map(this.ref);
     this.map.centerAndZoom(this.props.center, this.props.zoom);
+    this.setState({ map: this.map });
     this.componentWillReceiveProps(this.props, true);
   }
 
-  componentWillReceiveProps(props, focus = false) {
+  componentWillReceiveProps(props, force = false) {
     if (props.center !== this.props.center) {
       this.map.setCenter(props.center);
     }
@@ -34,7 +35,7 @@ export default class BMapLite extends React.PureComponent<Props> {
       this.map.setZoom(props.zoom);
     }
 
-    if (props.draggingDisabled !== this.props.draggingDisabled || focus) {
+    if (props.draggingDisabled !== this.props.draggingDisabled || force) {
       if (props.draggingDisabled) {
         this.map.disableDragging();
       } else {
@@ -44,7 +45,7 @@ export default class BMapLite extends React.PureComponent<Props> {
 
     if (
       props.inertialDraggingDisabled !== this.props.inertialDraggingDisabled ||
-      focus
+      force
     ) {
       if (props.inertialDraggingDisabled) {
         this.map.disableInertialDragging();
@@ -57,7 +58,7 @@ export default class BMapLite extends React.PureComponent<Props> {
   render() {
     return (
       <Context.Provider value={this.state.map}>
-        <div ref={ref => (this.$map = ref)} {...this.props} />
+        <div ref={ref => (this.ref = ref)} {...this.props} />
       </Context.Provider>
     );
   }

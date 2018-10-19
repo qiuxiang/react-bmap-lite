@@ -31,9 +31,9 @@ class Overlay extends BMap.Overlay {
 }
 
 export default class Marker extends React.PureComponent<Props> {
+  ref: HTMLDivElement;
   map: BMap.Map;
   overlay: Overlay;
-  element: HTMLElement;
 
   componentWillReceiveProps(props) {
     if (props.position !== this.props.position) {
@@ -48,7 +48,7 @@ export default class Marker extends React.PureComponent<Props> {
     }
 
     this.map = map;
-    this.overlay = new Overlay(this.props.position, this.element);
+    this.overlay = new Overlay(this.props.position, this.ref);
     map.addOverlay(this.overlay);
   }
 
@@ -57,7 +57,7 @@ export default class Marker extends React.PureComponent<Props> {
       <Context.Consumer>
         {map => {
           this.init(map);
-          return <div ref={ref => (this.element = ref)} {...this.props} />;
+          return <div ref={ref => (this.ref = ref)} {...this.props} />;
         }}
       </Context.Consumer>
     );
