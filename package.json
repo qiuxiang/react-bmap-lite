@@ -8,12 +8,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc --jsx react --outDir dist --declaration src/*"
+    "build": "tsc -d --jsx react --outDir dist src/* types/*"
   },
   "main": "dist",
   "files": [
     "dist/",
-    "typed/"
+    "types/"
   ],
   "devDependencies": {
     "@types/react": "^16.4.17",
