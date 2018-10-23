@@ -3,7 +3,7 @@ import { Context } from "./";
 
 export type Props = {
   position: BMap.Point;
-} & React.HTMLProps<HTMLDivElement>;
+};
 
 class Overlay extends BMap.Overlay {
   map: BMap.Map;
@@ -55,10 +55,16 @@ export default class Marker extends React.PureComponent<Props> {
   render() {
     return (
       <Context.Consumer>
-        {map => {
-          this.init(map);
-          return <div ref={ref => (this.ref = ref)} {...this.props} />;
-        }}
+        {map => (
+          <div
+            ref={ref => {
+              this.ref = ref;
+              this.init(map);
+            }}
+          >
+            {this.props.children}
+          </div>
+        )}
       </Context.Consumer>
     );
   }

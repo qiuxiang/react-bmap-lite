@@ -1,7 +1,7 @@
 {
   "name": "react-bmap-lite",
   "description": "React BaiduMapLite component",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/qiuxiang/react-bmap-lite"

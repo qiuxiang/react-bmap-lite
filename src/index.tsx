@@ -5,11 +5,12 @@ import Overlay from "./overlay";
 export const Context = React.createContext(null);
 
 export type Props = {
+  style?: React.CSSProperties;
   center: BMap.Point;
   zoom: number;
   draggingDisabled?: boolean;
   inertialDraggingDisabled?: boolean;
-} & React.HTMLProps<HTMLDivElement>;
+};
 
 export default class BMapLite extends React.PureComponent<Props> {
   static Marker = Marker;
@@ -58,7 +59,9 @@ export default class BMapLite extends React.PureComponent<Props> {
   render() {
     return (
       <Context.Provider value={this.state.map}>
-        <div ref={ref => (this.ref = ref)} {...this.props} />
+        <div ref={ref => (this.ref = ref)} style={this.props.style}>
+          {this.props.children}
+        </div>
       </Context.Provider>
     );
   }
